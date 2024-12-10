@@ -1,0 +1,19 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: chrootctf
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: true
+    #ports:
+    #  - protocol: "TCP" # Usa il protocollo TCP
+    #    port: 5000 # Porta che sarà visibile dall'esterno
+    #    targetPort: 5000 # Porta interna usata dal container (Flask)
+    #type: NodePort
+  healthcheck:
+    # TIP: disable the healthcheck during development
+    enabled: true
+    image: kind/healthcheck:e6e0ebf940da3f4974f9486bb649de146fad64a8cdb43ba90a74a2f6b7fbdd50
+  image: kind/challenge:e102e23371010cb23ddacf84a7be09a489269ea3c97b87bbbab870448e39db9c

@@ -1,0 +1,14 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: ret2win64
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: false
+  healthcheck:
+    # TIP: disable the healthcheck during development
+    enabled: false
+    image: kind/healthcheck:e6e0ebf940da3f4974f9486bb649de146fad64a8cdb43ba90a74a2f6b7fbdd50
+  image: kind/challenge:969cfdafa43551586b6d2e76fc7e492d8088f30e4d017e4222d4a4638d45d095

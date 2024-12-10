@@ -1,0 +1,5 @@
+pycryptodome
+pyinstaller
+numpy
+simpy
+flask

@@ -31,4 +31,4 @@ CMD kctf_setup && \
     kctf_drop_privs \
     socat \
       TCP-LISTEN:1337,reuseaddr,fork \
-      EXEC:"kctf_pow nsjail --config /home/user/nsjail.cfg -- ./chroot/home/user/ret2win_server"
+      EXEC:"kctf_pow nsjail --config /home/user/nsjail.cfg -- /chroot/home/user/ret2win_server"

@@ -1,0 +1,46 @@
+Scenario
+Scenario: I partecipanti giocano il ruolo di utenti malintenzionati che cercano di ottenere un accesso di livello amministrativo in un sistema vulnerabile sfruttando la modalità CBC del cifrario AES. In questo contesto, l’obiettivo è decifrare un cookie cifrato tramite CBC e usare un attacco di bit-flipping per modificare il contenuto e ottenere privilegi di amministratore.
+Interna Narrativa: Il partecipante riceve un token cifrato generato dal sistema quando si registra. Inserendo il token durante il login, il server decifra e verifica i campi user e is_admin. Il partecipante deve modificare il token per far sì che is_admin=T, senza poter inserire caratteri proibiti come & e admin nell'input.
+Task
+Descrizione delle Azioni Richieste:
+Registrarsi come utente non amministratore per ottenere un token cifrato.
+Decifrare la struttura del token e analizzare i blocchi cifrati.
+Utilizzare l’attacco di bit-flipping sui blocchi iv e c1 per modificare usr= e is_admin=F.
+Eseguire il login con il token modificato per ottenere la flag.
+Istruzioni per il Partecipante:
+Inserire un nome utente qualsiasi tranne “admin”.
+Analizzare i blocchi cifrati per comprendere la posizione dei campi da alterare.
+Modificare il token cifrato seguendo i passaggi dell’attacco di bit-flipping.
+Goal
+Obiettivo da Risolvere: Decifrare correttamente il cookie cifrato, eseguire il bit-flipping per ottenere is_admin=T ed effettuare con successo il login come amministratore.
+Esito Atteso: Ottenere la flag dopo aver eseguito il login come amministratore.
+Condition
+Prerequisiti: Conoscenza della cifratura AES in modalità CBC, dei concetti di padding e delle vulnerabilità sfruttabili tramite bit-flipping attack.
+Scenario Execution Flow (SEF)
+Passaggi per Risolvere il Task:
+Registrazione: Effettuare la registrazione per ottenere il token cifrato che contiene usr=<nome> e is_admin=F.
+Analisi del Token: Osservare che il token è suddiviso in blocchi da 16 byte (iv | c1 | c2 | c3) e identificare le parti corrispondenti a usr e is_admin.
+Bit-Flipping su is_admin=F:
+Calcolare il XOR tra forte&is_admin=F e forte&is_admin=T.
+Calcolare il nuovo valore c1_m per ottenere is_admin=T.
+Bit-Flipping su usr=admin:
+Calcolare il XOR tra usr=bdminbelloer e usr=admin&belloe.
+Calcolare il nuovo iv per ottenere usr=admin.
+Inserimento del Token Modificato: Eseguire il login con il token modificato per verificare il risultato e ottenere la flag.
+Knowledge, Skills, Abilities (KSA)
+Conoscenza (Knowledge):
+Principi di crittografia simmetrica, cifratura AES e modalità CBC.
+Tecniche di padding e de-padding nella crittografia.
+Abilità (Skills):
+Manipolazione dei bit tramite XOR.
+Identificazione dei blocchi cifrati e interpretazione del contenuto del token.
+Capacità (Ability):
+Capacità di condurre attacchi di bit-flipping.
+Capacità di analizzare e modificare token crittografati per ottenere specifici risultati.
+Learning Objectives
+Obiettivi di Apprendimento:
+Comprendere come funziona la modalità CBC e come la manipolazione dei blocchi può essere usata per modificare i dati crittografati.
+Acquisire esperienza pratica nell’implementazione di un attacco di bit-flipping su AES in CBC.
+Sviluppare capacità di problem-solving crittografico applicato ad attacchi reali.
+Teaching Content
+Materiale Educativo: Un’introduzione alla crittografia simmetrica e alla modalità CBC, con esempi di vulnerabilità note e spiegazioni dell’attacco di bit-flipping tramite XOR.

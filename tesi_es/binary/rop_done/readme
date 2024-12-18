@@ -1,0 +1,3 @@
+L' esercizio è pronto per essere usato.
+Al giocatore va dato il binario. Quando si distribuisce il binario, bisogna sostituire la flag, in modo che il giocatore abbia una falsa flag.
+La vera flag si ottiene inserendo il payload corretto nel server che hosta il ctf.

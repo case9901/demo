@@ -1,0 +1,38 @@
+Scenario:
+
+Il giocatore interpreta il ruolo di un attaccante che deve entrare nel portale militare di San Magnolia. Per fare ciò, deve prima bypassare il sistema di login usando SQL injection per autenticarsi come un utente valido e poi sfruttare una falla che espone il TOTP secret per ottenere l'accesso definitivo.
+Task:
+
+Bypassare il sistema di login usando SQL injection.
+Recuperare il TOTP secret tramite una richiesta HTTP.
+Usare il TOTP secret per generare un codice OTP valido ed effettuare il login.
+Goal:
+
+Accedere al sistema e ottenere la flag finale, dimostrando il superamento delle difese di sicurezza.
+Condition:
+
+Nessuna credenziale predefinita è conosciuta.
+L’attaccante può però manipolare direttamente le richieste HTTP.
+Scenario Execution Flow (SEF):
+
+Passo 1: Inviare un payload di SQL injection tramite il campo di login.
+Passo 2: Ottenere il TOTP secret per il 2FA dalla risposta alla richiesta HTTP.
+Passo 3: Usare il TOTP secret con uno strumento esterno (come pyotp) per generare l'OTP.
+Passo 4: Effettuare l’accesso al portale utilizzando l'OTP generato.
+Knowledge Skills Ability (KSA):
+
+Conoscenza:
+Comprensione degli attacchi SQL Injection.
+Conoscenza del funzionamento del TOTP e della sua implementazione per 2FA.
+Abilità:
+Capacità di analizzare e manipolare richieste HTTP per estrarre dati sensibili.
+Capacità di generare un OTP usando pyotp o un algoritmo TOTP standard.
+Capacità:
+Applicazione pratica delle tecniche di SQL Injection e bypass delle protezioni di 2FA.
+Learning Objects:
+
+Imparare come bypassare un sistema di autenticazione tramite SQL Injection.
+Scoprire come ottenere e usare un TOTP secret per autenticarsi come un utente legittimo.
+Teaching Content:
+
+Documentazione su SQL Injection e 2FA TOTP, con risorse su come pyotp genera codici OTP basati su un secret.

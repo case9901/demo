@@ -1,0 +1,15 @@
+Scenario: L'utente è incaricato di scoprire segreti nascosti su un sito web del SERN, organizzazione fittizia di ricerca sui viaggi temporali.
+Task: Esplorare il sito e individuare i file statici contenenti la flag.
+Goal: Trovare e accedere al contenuto della flag nascosta.
+Condition: L’utente deve saper interpretare gli indizi forniti nelle pagine per identificare file statici come robots.txt.
+Scenario Execution Flow (SEF):
+Passare attraverso le pagine /about, /contact e /secret per raccogliere indizi.
+Interpretare l’indizio sui file statici nella pagina /secret.
+Visita /robots.txt per ottenere la flag
+Knowledge Skills Ability (KSA):
+Knowledge: Comprensione di come vengono gestiti i file statici nei siti web.
+Skills: Abilità di riconoscere i file di configurazione (come robots.txt) e di sfruttarli per accedere ai percorsi non indicizzati.
+Ability: Capacità di interpretare indizi e individuare vulnerabilità di esposizione.
+Learning Objects:
+Comprendere il funzionamento di robots.txt e la sua rilevanza per la sicurezza.
+Riconoscere l’importanza di gestire con cautela i file statici accessibili al pubblico.

@@ -1,0 +1,29 @@
+Scenario:
+Il partecipante interpreta il ruolo di un attaccante che cerca di ottenere l'accesso a una flag nascosta all'interno di un ambiente chroot isolato. Il sistema è configurato per limitare l'accesso ai file di sistema, ma non implementa misure di sicurezza complete per prevenire un attacco di chroot escape.
+
+Task:
+Escapare dall’ambiente chroot e ottenere l'accesso alla flag situata all'esterno del file system limitato.
+
+Goal:
+Compilare e eseguire un programma di evasione per ottenere accesso alla directory di sistema esterna e leggere il contenuto della flag.
+
+Condition:
+L’utente ha accesso alla funzione ping con input controllato e può utilizzare comandi di sistema all’interno dell’ambiente chroot.
+
+Scenario Execution Flow (SEF):
+
+Creare un programma C (escape.c) che tenti di eseguire un chroot escape utilizzando chdir("..") iterativamente fino a raggiungere la directory principale.
+Compilare il file escape.c in un eseguibile all'interno del chroot.
+Eseguire l'eseguibile per ottenere accesso alla radice del filesystem e inviare la flag tramite un comando curl a un webhook esterno.
+Knowledge, Skills, and Abilities (KSA):
+
+Conoscenze: Familiarità con il comando chroot e le sue limitazioni; comprensione di base dei permessi e isolamento di processo.
+Abilità: Capacità di scrivere codice in C per manipolare la struttura del filesystem; capacità di compilare ed eseguire comandi in un ambiente chroot.
+Competenze: Esecuzione di tecniche di evasione di sicurezza per accedere a informazioni protette.
+Learning Objectives:
+
+Comprendere i limiti di isolamento di un ambiente chroot.
+Saper implementare un attacco di chroot escape.
+Saper utilizzare comandi per interagire con sistemi di file isolati e per trasferire informazioni verso un server esterno.
+Teaching Content:
+Documentazione sui sistemi di file isolati (chroot), vulnerabilità in ambienti isolati, e tecniche di evasione di sicurezza; esempi di codice di escape in C per la pratica.

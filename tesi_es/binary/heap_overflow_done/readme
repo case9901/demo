@@ -1,0 +1,4 @@
+L' esercizio è pronto per essere usato.
+Ai giocatori va dato il file binario (compilato senza protezioni per
+ facilitare l'exploit). QUando si distribuirà l'esercizio, sostituire nel file binario
+ la flag con una falsa.

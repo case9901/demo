@@ -1,0 +1,19 @@
+Esplorazione Iniziale
+
+L'utente atterra sulla pagina principale e nota la presenza di alcuni link (/about, /contact, /secret) che menzionano la ricerca sui viaggi temporali di SERN, oltre a suggerire la presenza di dati nascosti.
+Esaminando queste pagine, l’utente troverà alcune false flag nascoste in commenti HTML, suggerendo che il vero obiettivo è altrove.
+Indizio di Ricerca e Scoperta di robots.txt
+
+Sulla pagina /secret, un commento nascosto indica un possibile file statico da cercare. Da qui, l’utente può tentare di individuare file di configurazione o documenti standard, come robots.txt, utilizzato comunemente per nascondere o limitare l'accesso ai file ai motori di ricerca.
+Accesso a /robots.txt
+
+Visitando /robots.txt, l’utente ottiene il contenuto della flag, completando la sfida.
+
+
+CWE-538: File and Directory Information Exposure
+
+L'inclusione di /robots.txt che rivela il percorso di file sensibili esemplifica un’esposizione non necessaria di informazioni sui file, rendendo il sistema vulnerabile.
+
+CWE-200: Information Exposure
+
+La presenza di file accessibili al pubblico (/flag.txt), senza alcun controllo, comporta l'esposizione di informazioni che dovrebbero essere riservate.

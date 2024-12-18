@@ -1,0 +1,5 @@
+L'esercizio è funzionante.
+Per usarlo, bisogna prima creare il database lanciando il file create_db.py, e poi si può usare l'applicazione con 
+sudo php -s localhost:8000
+
+Ai giocatori non va consegnato nesun file.

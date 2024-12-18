@@ -1,0 +1,31 @@
+Scenario: Gli utenti devono sfruttare una vulnerabilità di Local File Inclusion (LFI) e Log Injection per ottenere l'accesso al file di log generato dall'applicazione e quindi eseguire un comando arbitrario per leggere la flag.
+
+Task:
+
+Identificare l’esposizione del file descriptor del log.
+Iniettare codice tramite un header User-Agent personalizzato.
+Utilizzare LFI per eseguire il codice iniettato e navigare il file system alla ricerca della flag.
+Goal: Ottenere il contenuto del file flag.txt situato nella cartella flags.
+
+Condition: Gli utenti devono comprendere come funzionano le inclusioni di file (LFI) e come eseguire Log Injection tramite parametri HTTP, come User-Agent.
+
+Scenario Execution Flow (SEF):
+
+Identificare l’accesso alla funzione include e capire che il file /proc/self/fd/3 contiene il log in cui è presente il payload iniettato.
+Utilizzare l’header User-Agent per iniettare codice PHP all'interno del file di log.
+Effettuare una richiesta per includere il file di log tramite LFI e far eseguire il comando.
+Utilizzare il comando eseguito per esplorare la directory e trovare la flag.
+Knowledge, Skills, and Abilities (KSA):
+
+Conoscenza di base su Local File Inclusion (LFI) e Log Injection.
+Competenze nell’utilizzo di strumenti HTTP per manipolare headers e parametri di richiesta.
+Abilità di lettura e navigazione dei file di sistema in contesto Linux.
+Learning Objectives:
+
+Comprendere le vulnerabilità di tipo LFI e Log Injection.
+Apprendere come sfruttare l’header User-Agent per iniettare codice.
+Saper usare il file descriptor per accedere a contenuti sensibili.
+Teaching Content:
+
+Breve spiegazione dei metodi di iniezione di log e LFI.
+Panoramica su /proc e il suo ruolo nella gestione dei file descriptor.

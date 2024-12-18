@@ -1,0 +1,2 @@
+####path assoluto dove si trova la flag
+/chroot/home/user/flag.txt

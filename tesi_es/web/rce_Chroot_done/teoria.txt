@@ -1,0 +1,23 @@
+Chroot e Sicurezza
+Chroot è un comando che permette di cambiare la directory principale visibile per un processo e i suoi figli. Questo comando viene spesso usato per confinare un processo in un “jail”, un ambiente controllato da cui non può accedere ad altre parti del filesystem. Questo può essere utile per testare software o isolare applicazioni vulnerabili, ma ha dei limiti di sicurezza significativi.
+
+La Vulnerabilità nel Sistema e il Chroot Escape
+Limiti di Chroot: chroot non è progettato come una sandbox di sicurezza completa, infatti:
+
+Non impedisce la navigazione nei file di sistema se il processo ha privilegi di root.
+La struttura di isolamento è facilmente aggirabile con comandi che permettono di uscire dalla directory chroot.
+Come Funziona l’Evasione di Chroot:
+
+In questo caso, l’attacco di chroot escape si basa sulla manipolazione dei comandi di sistema per cambiare ripetutamente la directory di lavoro (chdir("..")) fino a raggiungere la directory radice reale del sistema.
+Dopo aver raggiunto la radice, viene utilizzato chroot(".") per impostare il nuovo root come la directory di sistema reale, annullando quindi l’effetto di isolamento iniziale.
+Esecuzione del Codice Maligno:
+
+Una volta ottenuto l’accesso alla radice del filesystem, l’attaccante può utilizzare comandi di sistema per accedere a qualsiasi file, come flag.txt, che si trova al di fuori dell’ambiente chroot.
+L’uso di curl invia il contenuto della flag a un webhook esterno, permettendo all’attaccante di ottenere la flag senza dover direttamente visualizzare il file.
+CWE Coinvolti
+CWE-22: Improper Limitation of a Pathname to a Restricted Directory (‘Path Traversal’)
+CWE-73: External Control of File Name or Path
+CWE-256: Unprotected Storage of Credentials
+CWE-77: Command Injection
+CWE-362: Concurrent Execution using Shared Resource with Improper Synchronization ('Race Condition')
+CWE-428: Untrusted Search Path

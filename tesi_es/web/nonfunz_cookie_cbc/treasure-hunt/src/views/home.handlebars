@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treasure Hunt</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Treasure Hunt</h1>
+    <h2>Welcome, {{state.username}}</h2>
+
+    <div id="inventory">
+        <h3>Inventory:</h3>
+        <ul>
+            {{#each state.inventory}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
+    <div id="game-grid">
+        {{#each cells}}
+            <div class="cell {{this.class}}"></div>
+            {{#if @last}}
+                <div class="clear"></div>
+            {{/if}}
+        {{/each}}
+    </div>
+
+    <form action="/move" method="post">
+        <button name="direction" value="up">Up</button>
+        <button name="direction" value="down">Down</button>
+        <button name="direction" value="left">Left</button>
+        <button name="direction" value="right">Right</button>
+    </form>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

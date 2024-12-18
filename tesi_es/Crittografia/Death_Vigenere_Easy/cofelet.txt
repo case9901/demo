@@ -1,0 +1,36 @@
+Scenario
+Scenario: I partecipanti interpretano il ruolo di investigatori digitali che devono aiutare un alleato (L) a decifrare un messaggio cifrato da un criminale noto (Kira). Il messaggio intercettato è cifrato utilizzando una combinazione di ROT13 e una versione modificata del Vigenère. L’utente deve analizzare e decifrare il messaggio per ottenere la flag nascosta.
+Interna Narrativa: I partecipanti ricevono un messaggio cifrato insieme a due indizi: uno riguardante la chiave in ROT13, e l’altro relativo alla formula modificata per il Vigenère. Devono procedere alla decifratura del messaggio per rivelare la flag.
+Task
+Descrizione: Azioni che il partecipante deve compiere per decifrare il messaggio e ottenere la flag.
+Decodifica della chiave utilizzando ROT13.
+Interpretazione della formula modificata per il Vigenère e applicazione sul messaggio cifrato.
+Decifratura del messaggio per ottenere la flag.
+Istruzioni per il Partecipante:
+Utilizzare ROT13 per decifrare la chiave.
+Applicare l’algoritmo Vigenère modificato seguendo la formula indicata.
+Inserire il messaggio decifrato per ottenere la flag.
+Goal
+Obiettivo da Risolvere: Decifrare correttamente il messaggio cifrato per ottenere la flag.
+Esito Atteso: Inserimento corretto del messaggio decifrato per ricevere il flag come risposta.
+Condition
+Prerequisiti: Conoscenze di base in crittografia, ROT13 e cifratura Vigenère. Familiarità con i concetti di cifratura a sostituzione e cifrari basati su chiavi.
+Scenario Execution Flow (SEF)
+Passaggi per Risolvere il Task:
+Decodifica della chiave utilizzando ROT13 (primo passo base per familiarizzare con i dettagli dell'algoritmo).
+Interpretazione della formula Vigenère modificata fornita negli indizi.
+Decrittazione del messaggio cifrato utilizzando la chiave decodificata.
+Inserimento del messaggio decrittato per ottenere la flag.
+Knowledge Skills Ability (KSA)
+Conoscenza (Knowledge): Comprensione dei principi della crittografia, ROT13 e Vigenère modificato. Familiarità con i cifrari basati su chiave e su cifratura a sostituzione.
+Abilità (Skills): Capacità di decodificare e interpretare messaggi cifrati utilizzando gli strumenti crittografici specificati (ROT13 e Vigenère modificato).
+Capacità (Ability): Capacità di dedurre soluzioni a problemi complessi e di risolvere crittogrammi utilizzando gli algoritmi e le tecniche fornite.
+Learning Objectives
+Obiettivi di Apprendimento: Alla fine della challenge, il partecipante dovrebbe aver acquisito:
+Capacità pratica di decodificare messaggi crittografati con algoritmi ROT13 e Vigenère modificato.
+Comprensione di come utilizzare e adattare algoritmi di cifratura per decrittare messaggi complessi.
+Miglioramento delle competenze di problem-solving e di analisi logica applicata alla crittografia.
+Teaching Content
+Materiale Educativo: Fornire una breve descrizione testuale di ROT13 e Vigenère, evidenziando i concetti chiave e offrendo esempi pratici. Un esempio di testo potrebbe includere:
+Definizione e spiegazione del funzionamento di ROT13.
+Spiegazione della cifratura Vigenère, seguita da un'introduzione sulla variante modificata utilizzata in questa challenge.

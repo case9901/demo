@@ -1,0 +1,6 @@
+L'esercizio è pronto per essere usato. 
+Al giocatore va consegnato il file help.txt e basta.
+Per poter usare l'esercizio bisogna prima runnare il file setup_database.py.
+Che usa il socket di Mysql per generare il database per l'esercizio.
+Poi, bisogna runnare il file app.py
+IL file generate_otp.py contiene uno script per generarsi il TOTP a partire dal segreto.

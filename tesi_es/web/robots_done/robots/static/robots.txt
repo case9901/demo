@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /secret
+
+# Congratulations, you have found the hidden data!
+# Flag: CTF{steins_gate_hidden_flag}
+
+# Explanation of robots.txt:
+# The robots.txt file is used by websites to communicate with web crawlers and other web robots.
+# It specifies which pages or files the web crawler can or cannot request from the site.
+# This is used mainly to avoid overloading the site with requests and to keep certain pages or files private.

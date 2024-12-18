@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LFI Log Poisoning Challenge</title>
+</head>
+<body>
+    <h1>LFI Log Poisoning Challenge</h1>
+    <form action="/include" method="get">
+        <label for="file">File:</label>
+        <input type="text" id="file" name="file" required>
+        <button type="submit">Include</button>
+    </form>
+</body>
+</html>
+

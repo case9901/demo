@@ -1,0 +1,14 @@
+apiVersion: kctf.dev/v1
+kind: Challenge
+metadata:
+  name: dhmitm
+spec:
+  deployed: true
+  powDifficultySeconds: 0
+  network:
+    public: false
+  healthcheck:
+    # TIP: disable the healthcheck during development
+    enabled: true
+    image: kind/healthcheck:e6e0ebf940da3f4974f9486bb649de146fad64a8cdb43ba90a74a2f6b7fbdd50
+  image: kind/challenge:7ed322ab9ce03c9a3e7faba3e6a8e107660125e62287c885df77daa2d96fa734

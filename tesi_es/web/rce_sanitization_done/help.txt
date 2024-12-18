@@ -1,0 +1,4 @@
+Nome file da cercare: ./flag.txt
+
+(OPZIONALE):
+Filtri:  forbidden_patterns = [' ', 'cat', 'flag', '|', '&', '`', '>', '<', '&&', '||']

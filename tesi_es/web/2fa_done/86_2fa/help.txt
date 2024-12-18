@@ -1,0 +1,3 @@
+Annette è riuscita a recuperare la funzione usata per il Totp.
+Buona fortuna soldato!
+"pyotp.TOTP"

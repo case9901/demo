@@ -1,0 +1,30 @@
+Scenario:
+Il partecipante si trova in un ambiente in cui ha accesso limitato a determinati comandi, ma può interagire con il sistema inviando richieste per eseguire comandi ping. Tuttavia, è presente una vulnerabilità che permette l'iniezione di comandi arbitrari e l'accesso a file non autorizzati.
+
+Task:
+Utilizzare un payload che sfrutta il command injection per estrarre il file flag.txt situato sul server vulnerabile.
+
+Goal:
+Ottenere il contenuto di flag.txt tramite esfiltrazione a un server di cui l'attaccante controlla il webhook.
+
+Condition:
+L’utente può accedere all’applicazione web e inviare comandi ping attraverso il modulo, ma con restrizioni sui caratteri dell’input. La configurazione attuale permette comunque di utilizzare comandi arbitrari con caratteri di bypass.
+
+Scenario Execution Flow (SEF):
+
+Accedere alla pagina /ping e analizzare il filtro input.
+Creare un payload che utilizza ${IFS} per bypassare i controlli e iniettare un comando wget per trasferire i dati a un server esterno.
+Utilizzare un URL webhook per ricevere la flag tramite la richiesta POST.
+Osservare i risultati e confermare l'avvenuta esfiltrazione della flag.
+Knowledge, Skills, and Abilities (KSA):
+
+Conoscenze: Conoscenza dei concetti di command injection e delle tecniche di sanitizzazione input.
+Abilità: Capacità di costruire payloads per bypassare i filtri di input e di usare comandi Unix per l’esfiltrazione.
+Competenze: Esecuzione di tecniche di evasione di sicurezza e manipolazione avanzata di input in ambienti Unix.
+Learning Objectives:
+
+Comprendere le tecniche di iniezione di comandi e i rischi legati a subprocessi non sanitizzati.
+Saper bypassare filtri di input per eseguire comandi arbitrari.
+Comprendere come i pattern di esfiltrazione dati possano aggirare i controlli di rete.
+Teaching Content:
+Documentazione su iniezione di comandi, esempi di bypass di sanitizzazione, e best practice per proteggere i subprocessi dagli input dell'utente.

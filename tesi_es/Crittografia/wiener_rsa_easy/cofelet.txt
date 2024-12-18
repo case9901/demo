@@ -1,0 +1,41 @@
+Scenario
+Scenario: L'utente riceve i valori di N (modulo), e (esponente pubblico), e il valore cifrato di una flag c. Lo scopo è recuperare la flag utilizzando un attacco noto come attacco di Wiener (o Wiener's Attack), basato sulla debolezza derivante dalla scelta di un esponente privato d troppo piccolo.
+
+Narrativa Interna: La challenge è progettata per testare la comprensione dell’attacco di Wiener e delle vulnerabilità derivate dall’utilizzo di RSA con esponenti privati troppo piccoli. Per risolvere l'esercizio, l'utente deve decifrare il valore cifrato c senza conoscere d, sfruttando la debolezza del sistema RSA.
+
+Task
+Descrizione delle Azioni Richieste:
+
+Calcolare l’esponente privato d utilizzando l’attacco di Wiener, basato sull’approssimazione di d con frazioni continue (continued fractions).
+Decifrare il valore cifrato c per ottenere il messaggio originale m, ovvero la flag.
+Istruzioni per il Partecipante:
+
+Utilizzare un tool di attacco crittografico, come RsaCtfTool, che offre l’attacco di Wiener per calcolare d quando d è piccolo rispetto a N.
+Decifrare c usando il valore di d trovato per recuperare la flag.
+Goal
+Obiettivo da Risolvere: Recuperare la flag decifrando il valore cifrato c attraverso l’attacco di Wiener.
+Esito Atteso: Riuscire a calcolare d e decifrare c, ottenendo così il messaggio originale (la flag).
+Condition
+Prerequisiti: Conoscenze di base su RSA e sugli attacchi crittografici legati a scelte deboli di parametri RSA, in particolare su come l’uso di un esponente privato piccolo (d < N^(1/4) / 3) può rendere RSA vulnerabile.
+Scenario Execution Flow (SEF)
+Passaggi per Risolvere il Task:
+Generazione delle chiavi RSA: L’utente riceve i valori di N e e, insieme al valore cifrato c della flag.
+Utilizzo dell'Attacco di Wiener: L'utente applica l'attacco di Wiener per trovare d. Wiener ha dimostrato che, quando d è sufficientemente piccolo rispetto a N, d può essere approssimato con una frazione continua di e/N.
+Decifratura: Con il valore di d calcolato, l'utente decifra c per ottenere il messaggio originale m (la flag).
+Knowledge, Skills, Abilities (KSA)
+Conoscenza (Knowledge):
+
+Concetti di base del sistema RSA e dei suoi parametri (N, e, d).
+Nozioni sul calcolo delle frazioni continue e sulla loro applicazione nell’attacco di Wiener.
+Abilità (Skills):
+
+Utilizzare strumenti come RsaCtfTool per eseguire attacchi crittografici su RSA.
+Applicare calcoli modulari per decifrare un messaggio RSA utilizzando una chiave privata recuperata tramite attacco.
+Capacità (Ability):
+
+Abilità di sfruttare debolezze crittografiche legate alla scelta errata di parametri in RSA.
+Calcolo di frazioni continue e loro applicazione in un contesto di vulnerabilità crittografica.
+Learning Objectives
+Obiettivi di Apprendimento:
+Comprendere le implicazioni della scelta di un esponente privato d troppo piccolo in RSA.
+Acquisire competenze pratiche sugli attacchi crittografici basati su frazioni continue, con applicazione dell'attacco di Wiener.

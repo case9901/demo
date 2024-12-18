@@ -1,0 +1,1 @@
+Devi ottenere il contenuto del file ./flag.txt

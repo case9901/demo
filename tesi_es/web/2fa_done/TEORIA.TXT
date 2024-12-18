@@ -1,0 +1,45 @@
+Basi Teoriche delle Vulnerabilità
+SQL Injection (CWE-89): Consente a un utente malintenzionato di manipolare le query SQL eseguite dall'applicazione, permettendo il bypass dell'autenticazione. In questo caso, la query è vulnerabile perché i parametri username e password vengono inseriti direttamente nella query senza sanitizzazione.
+
+Exposure of Sensitive Information to an Unauthorized Actor (CWE-200): La rotta /get_secret permette agli utenti autenticati di ottenere il TOTP secret, una vulnerabilità che espone un dato sensibile (il TOTP secret) a utenti potenzialmente non autorizzati.
+
+Improper Authentication (CWE-287): Questa vulnerabilità si manifesta nel modo in cui viene implementato il controllo dell'OTP: il TOTP secret è disponibile tramite /get_secret e non è protetto, consentendo all'attaccante di autenticarsi senza conoscere il vero OTP dell'utente.
+
+Autenticazione a Due Fattori (2FA)
+L’autenticazione a due fattori (2FA) è un metodo di autenticazione che richiede all’utente due diverse forme di verifica:
+
+Qualcosa che conosce, come una password.
+Qualcosa che possiede o riceve, come un codice temporaneo generato su un dispositivo o inviato via SMS.
+L’idea alla base della 2FA è di ridurre la probabilità che un attaccante possa ottenere accesso all’account di un utente compromettendo solo la password. Anche se l’attaccante conosce la password, non potrebbe accedere senza il secondo fattore di autenticazione.
+
+Time-Based One-Time Password (TOTP)
+Il TOTP è una forma di 2FA che utilizza un secret (segreto condiviso) e un algoritmo di generazione di codici temporanei che cambiano periodicamente (di solito ogni 30 secondi). TOTP è descritto nello standard RFC 6238. I passaggi del TOTP includono:
+
+Generazione del Secret: Il server genera e assegna un secret a ogni utente, memorizzandolo in modo sicuro.
+Sincronizzazione Temporale: L’algoritmo TOTP usa il timestamp corrente per generare un codice OTP. Questo garantisce che il codice è valido solo per un breve periodo.
+Generazione del Codice OTP: L’OTP viene calcolato usando il secret dell’utente e un contatore temporale. Questo codice è inviato all’utente tramite una app di autenticazione.
+Verifica del Codice: Il server verifica il codice inserito dall’utente confrontandolo con quello generato localmente con lo stesso secret.
+PyOTP
+pyotp è una libreria Python che implementa il TOTP in accordo con l’RFC 6238. Con pyotp.TOTP(secret).now() si può generare un codice OTP basato sul secret per l’autenticazione temporanea, mentre pyotp.TOTP(secret).verify(otp) verifica che il codice fornito corrisponda a quello generato nello stesso istante, offrendo una protezione robusta in teoria, ma soggetta a errori di implementazione.
+
+Vulnerabilità di SQL Injection (CWE-89)
+L’SQL Injection (SQLi) è un attacco che consente di manipolare le query SQL inviate al database. In questo caso, la query è vulnerabile perché i parametri username e password vengono inseriti direttamente nella query SQL senza sanitizzazione:
+query = f"SELECT * FROM users WHERE username = '{username}' AND password = '{password}'"
+
+Problemi di Implementazione di 2FA e Gestione del TOTP
+Esposizione del Secret (CWE-200): La funzione /get_secret permette di recuperare il TOTP secret in JSON:
+@app.route('/get_secret')
+def get_secret():
+    if 'username' in session:
+        secret = session.get('secret')
+        return jsonify({'secret': secret})
+Questo secret permette a chiunque lo possieda di generare OTP validi. La presenza di una vulnerabilità di SQL Injection permette a un attaccante di accedere alla sessione senza credenziali valide e quindi di accedere al secret. Una volta ottenuto, può usare pyotp per generare OTP validi, aggirando il sistema di 2FA.
+
+Mancanza di Limitazione sugli Endpoint (CWE-862): La funzione /get_secret non limita l’accesso all’utente che ne ha effettivamente bisogno. Questo endpoint non dovrebbe essere accessibile dopo che il TOTP è stato inizialmente generato, poiché permette a qualsiasi utente autenticato di ottenere il secret, rendendo il secondo fattore vulnerabile.
+
+Insecure Direct Object Reference (CWE-639): La sessione memorizza il secret senza verificarne l’autenticità. Questa configurazione permette a un attaccante, una volta entrato nel sistema, di ottenere direttamente l’accesso ai dati TOTP dell’utente.
+
+Miglioramenti per la Sicurezza
+Sanitizzazione degli Input: Usare query parametriche evita l’SQL Injection. Ad esempio, usando cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", (username, password)), non è possibile inserire codice SQL nel campo username.
+Protezione del Secret: Il secret TOTP non dovrebbe essere esposto. Dovrebbe essere generato una volta e mai più accessibile dopo la configurazione.
+Rate Limiting: Limitare le richieste a /get_secret per evitare brute-force e furto del secret.

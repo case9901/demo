@@ -1,0 +1,44 @@
+Scenario
+Scenario: I partecipanti agiscono come attaccanti Man-in-the-Middle (MITM) in una comunicazione basata su Diffie-Hellman (DH) tra due entità, Alice e Bob. Lo scopo dell'attaccante è intercettare e decifrare i messaggi scambiati durante l'handshake DH, sfruttando un attacco MITM per generare chiavi crittografiche simmetriche e intercettare i messaggi cifrati.
+
+Narrativa Interna: Alice e Bob comunicano tramite un protocollo DH per scambiare messaggi riservati (la flag) in due parti. La challenge richiede di decifrare queste parti della flag sfruttando l’attacco MITM. L’attaccante può intercettare e alterare i messaggi scambiati, ma non ha accesso alle chiavi private di Alice e Bob.
+
+Task
+Descrizione delle Azioni Richieste:
+
+Intercettare i valori pubblici di Alice (A) e Bob (B) durante lo scambio DH.
+Modificare i messaggi DH sostituendo A e B con una chiave intermedia I calcolata dall'attaccante.
+Calcolare le chiavi simmetriche necessarie per decrittare i messaggi di Alice e Bob.
+Decifrare i messaggi cifrati AES inviati tra Alice e Bob per ottenere la flag.
+Istruzioni per il Partecipante:
+
+Intercettare le chiavi pubbliche A e B, sostituendole con una chiave intermedia I.
+Utilizzare pwntools e i moduli crittografici per calcolare le chiavi simmetriche e decifrare i messaggi di Alice e Bob.
+Goal
+Obiettivo da Risolvere: Intercettare correttamente i messaggi di Alice e Bob, calcolare le chiavi simmetriche e decifrare le due parti della flag usando le chiavi crittografiche generate tramite MITM.
+Esito Atteso: Riuscire a leggere la flag decifrata e inviare correttamente le risposte per concludere la challenge con successo.
+Condition
+Prerequisiti: Conoscenze di base su Diffie-Hellman e la crittografia simmetrica, modalità operativa AES in ECB, e tecniche di Man-in-the-Middle (MITM) applicate ai protocolli crittografici.
+Scenario Execution Flow (SEF)
+Passaggi per Risolvere il Task:
+Intercettazione della chiave pubblica di Alice (A): L’attaccante intercetta A e invia la sua chiave pubblica I = g^i mod p a Bob.
+Intercettazione della chiave pubblica di Bob (B): L’attaccante intercetta B e invia I ad Alice.
+Calcolo delle Chiavi: L’attaccante calcola Ka_i = A^i mod p e Kb_i = B^i mod p, che corrispondono alle chiavi simmetriche utilizzate per decifrare i messaggi di Alice e Bob.
+Decifratura dei Messaggi: L’attaccante intercetta le due parti della flag cifrate, utilizzando le chiavi derivate Ka_i e Kb_i per decifrarle.
+Knowledge, Skills, Abilities (KSA)
+Conoscenza (Knowledge):
+Principi del protocollo Diffie-Hellman e vulnerabilità agli attacchi MITM.
+Tecniche di crittografia simmetrica, AES in modalità ECB, e hashing tramite SHA-256.
+Abilità (Skills):
+Utilizzo dei moduli di crittografia per calcolare chiavi simmetriche e decifrare messaggi cifrati.
+Analisi delle vulnerabilità in un protocollo crittografico e applicazione di attacchi MITM.
+Capacità (Ability):
+Abilità di intercettare e alterare i messaggi di un protocollo di handshake DH.
+Utilizzo di pwntools per la gestione di connessioni remote e manipolazione di protocolli crittografici.
+Learning Objectives
+Obiettivi di Apprendimento:
+Comprendere i principi di Diffie-Hellman e le vulnerabilità MITM.
+Acquisire competenze pratiche sugli attacchi crittografici MITM in un contesto di comunicazione sicura.
+Sviluppare capacità di problem-solving crittografico in uno scenario di attacco reale.
+Teaching Content
+Materiale Educativo: Esempi e spiegazioni su Diffie-Hellman, modalità AES ECB, hash SHA-256 e applicazioni di attacchi MITM nel contesto della crittografia.

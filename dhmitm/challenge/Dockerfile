@@ -21,6 +21,7 @@ RUN python3 -m pip install -r chroot/requirements.txt
 RUN pyinstaller /chroot/home/user/dhmitm.py
 RUN mv /dist /chroot/home/user
 RUN chmod a+rwx /chroot/home/user/
+EXPOSE 1337
 CMD kctf_setup && \
     kctf_drop_privs \
     socat \
